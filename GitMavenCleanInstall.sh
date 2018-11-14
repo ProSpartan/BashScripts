@@ -1,5 +1,6 @@
 ################################################################################
 #
+# License:.....GNU General Public License v3.0
 # Author:......CodeMonkey
 # Date:........14 November 2018
 # Title:.......GitMavenCleanInstall.sh
