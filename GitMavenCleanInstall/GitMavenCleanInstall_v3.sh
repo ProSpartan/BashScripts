@@ -35,6 +35,7 @@ git pull
 CURRENT_BRANCH="$(git rev-parse --abbrev-ref HEAD)"
 #Get the output of the command git diff
 GIT_DIFF_OUTPUT="$(git diff --name-only HEAD@{1} ${CURRENT_BRANCH})"
+
 #Split the diff output into an array
 readarray -t GIT_DIFF_OUTPUT_ARY << "$GIT_DIFF_OUTPUT"
 decalre -a GIT_DIFF_OUTPUT_ARY_ROOT_PATH=()
@@ -43,27 +44,27 @@ PREVIOUS_PATH=''
 #Loop the diff output array
 for file_path in "${GIT_DIFF_OUTPUT_ARY[@]}"
 do
-  #Split the file by /
-  IFS='/' read -ra SPLIT_PATH <<< "$file_path"
-  #Concatenate the first project + / + second project
-  root_path="${SPLIT_PATH[0]}${PATH_SEPERATOR}${SPLIT_PATH[1]}"
-  #Check if the current path is not equal to the previous path
-  if [[ "$root_path" != "$PREVIOUS_PATH" ]]
-  then
-    #Set the output array root path to have path
-    GIT_DIFF_OUTPUT_ARY_ROOT_PATH+=("$root_path")
-    #Set previous path to current path
-    PREVIOUS_PATH="$root_path"
-  fi
+    #Split the file by /
+    IFS='/' read -ra SPLIT_PATH <<< "$file_path"
+    #Concatenate the first project + / + second project
+    root_path="${SPLIT_PATH[0]}${PATH_SEPERATOR}${SPLIT_PATH[1]}"
+    #Check if the current path is not equal to the previous path
+    if [[ "$root_path" != "$PREVIOUS_PATH" ]]
+    then
+        #Set the output array root path to have path
+        GIT_DIFF_OUTPUT_ARY_ROOT_PATH+=("$root_path")
+        #Set previous path to current path
+        PREVIOUS_PATH="$root_path"
+    fi
 done
 
 #Loop the root paths
 for path in "${GIT_DIFF_OUTPUT_ARY_ROOT_PATH[@]}"
 do
-  #CD into path
-  cd "$path"
-  #Maven clean install
-  mvn -DskipTests=true --errors -T 8 -e
-  #CD back up before next project
-  cd ../../
+    #CD into path
+    cd "$path"
+    #Maven clean install
+    mvn -DskipTests=true --errors -T 8 -e
+    #CD back up before next project
+    cd ../../
 done
