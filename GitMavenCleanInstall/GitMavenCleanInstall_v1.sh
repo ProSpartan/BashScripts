@@ -40,12 +40,12 @@ CURRENT_BRANCH="$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')"
 GIT_DIFF_OUTPUT="$(git diff --name-status HEAD@{1} ${CURRENT_BRANCH})"
 
 #Split the diff output into an array
-read -a GIT_DIFF_OUTPUT_ARY <<< $GIT_DIF_OUTPUT
+read -a GIT_DIFF_OUTPUT_ARY <<< $GIT_DIFF_OUTPUT
 #Declare empty array for root path
 declare -a GIT_DIFF_OUTPUT_ARY_ROOT_PATH=()
 FORWARD='/'
 #Loop diff output array
-for i in "$GIT_DIFF_OUTPUT_ARY[@]}"
+for i in "${GIT_DIFF_OUTPUT_ARY[@]}"
 do
     #Check that the string is not 1 Character
     if [[ "$(echo -n $1 | wc -m)" != 1 ]]
