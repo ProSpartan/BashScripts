@@ -37,7 +37,7 @@ CURRENT_BRANCH="$(git rev-parse --abbrev-ref HEAD)"
 GIT_DIFF_OUTPUT="$(git diff --name-only HEAD@{1} ${CURRENT_BRANCH})"
 
 #Split the diff output into an array
-readarray -t GIT_DIFF_OUTPUT_ARY << "$GIT_DIFF_OUTPUT"
+readarray -t GIT_DIFF_OUTPUT_ARY <<< "$GIT_DIFF_OUTPUT"
 decalre -a GIT_DIFF_OUTPUT_ARY_ROOT_PATH=()
 PATH_SEPERATOR='/'
 PREVIOUS_PATH=''
