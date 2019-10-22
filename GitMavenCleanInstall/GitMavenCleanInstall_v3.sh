@@ -64,7 +64,7 @@ do
     #CD into path
     cd "$path"
     #Maven clean install
-    mvn -DskipTests=true --errors -T 8 -e
+    mvn -DskipTests=true -T 8 -e clean install
     #CD back up before next project
     cd ../../
 done
